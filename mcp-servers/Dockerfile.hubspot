@@ -1,4 +1,4 @@
-FROM ghcr.io/obot-platform/mcp-images/base-node:main
+FROM ghcr.io/boeing-platform/mcp-images/base-node:main
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ USER root
 RUN npm ci --omit=dev --ignore-scripts && \
     npm cache clean --force
 
-RUN cat > /nanobot.yaml <<'EOF'
+RUN cat > /boeingbot.yaml <<'EOF'
 publish:
   mcpServers: [server]
 
@@ -28,12 +28,12 @@ mcpServers:
       PRIVATE_APP_ACCESS_TOKEN: ${PRIVATE_APP_ACCESS_TOKEN}
 EOF
 
-RUN chown 1000 /nanobot.yaml
+RUN chown 1000 /boeingbot.yaml
 
-COPY --from=ghcr.io/obot-platform/nanobot:v0.0.86 /usr/local/bin/nanobot /usr/local/bin/
+COPY --from=ghcr.io/boeing-platform/boeingbot:v0.0.86 /usr/local/bin/boeingbot /usr/local/bin/
 
-ENTRYPOINT ["nanobot"]
+ENTRYPOINT ["boeingbot"]
 
-CMD ["run", "--listen-address", ":8099", "-e", "PRIVATE_APP_ACCESS_TOKEN", "--config", "/nanobot.yaml", "--disable-ui", "--exclude-built-in-agents"]
+CMD ["run", "--listen-address", ":8099", "-e", "PRIVATE_APP_ACCESS_TOKEN", "--config", "/boeingbot.yaml", "--disable-ui", "--exclude-built-in-agents"]
 
 USER 1000

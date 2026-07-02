@@ -47,7 +47,7 @@ app.post("/mcp", async (req, res) => {
     };
 
     const server = new McpServer({
-      name: "obot-webhook-server",
+      name: "boeing-webhook-server",
       version: "0.1.0",
     });
 
@@ -82,7 +82,7 @@ app.post("/mcp", async (req, res) => {
             const hmac = createHmac("sha256", WEBHOOK_SECRET);
             hmac.update(messageBody);
             const signature = hmac.digest("hex");
-            headers["X-Obot-Signature-256"] = signature;
+            headers["X-Boeing-Signature-256"] = signature;
           }
 
           // Send the request to the webhook

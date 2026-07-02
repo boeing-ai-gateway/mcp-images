@@ -1,12 +1,12 @@
 FROM ghcr.io/github/github-mcp-server AS binary
 
-FROM ghcr.io/obot-platform/nanobot:v0.0.86
+FROM ghcr.io/boeing-platform/boeingbot:v0.0.86
 
 COPY --from=binary /server/github-mcp-server .
 
 USER root
 
-RUN cat > nanobot.yaml <<'EOF'
+RUN cat > boeingbot.yaml <<'EOF'
 publish:
   mcpServers: [server]
 
@@ -21,10 +21,10 @@ mcpServers:
       GITHUB_HOST: ${GITHUB_HOST}
 EOF
 
-RUN chown 1000 nanobot.yaml
+RUN chown 1000 boeingbot.yaml
 
-ENTRYPOINT ["nanobot"]
+ENTRYPOINT ["boeingbot"]
 
-CMD ["run", "--listen-address", ":8099", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "-e", "GITHUB_TOOLSETS", "-e", "GITHUB_DYNAMIC_TOOLSETS", "-e", "GITHUB_HOST", "--config", "./nanobot.yaml", "--disable-ui", "--exclude-built-in-agents"]
+CMD ["run", "--listen-address", ":8099", "-e", "GITHUB_PERSONAL_ACCESS_TOKEN", "-e", "GITHUB_TOOLSETS", "-e", "GITHUB_DYNAMIC_TOOLSETS", "-e", "GITHUB_HOST", "--config", "./boeingbot.yaml", "--disable-ui", "--exclude-built-in-agents"]
 
 USER 1000

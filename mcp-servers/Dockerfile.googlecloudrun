@@ -5,7 +5,7 @@ WORKDIR /app
 RUN apk add --no-cache git
 
 # Clone a Google Cloud Run MCP repository with configurable parameters
-ARG CLOUD_RUN_MCP_REPO=https://github.com/obot-platform/cloud-run-mcp.git
+ARG CLOUD_RUN_MCP_REPO=https://github.com/boeing-platform/cloud-run-mcp.git
 ARG CLOUD_RUN_MCP_COMMIT=main
 RUN git clone ${CLOUD_RUN_MCP_REPO} . && \
     git checkout ${CLOUD_RUN_MCP_COMMIT}
